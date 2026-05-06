@@ -94,3 +94,4 @@ php artisan storage:link
 
 10. Start Laravel Development Server
 php artisan serve
+
