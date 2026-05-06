@@ -35,7 +35,3 @@
     <input type="date" name="due_date" class="form-control" value="{{ old('due_date', $task->due_date ?? '') }}">
 
 </div>
-
-<button class="btn btn-success">
-    Save
-</button>

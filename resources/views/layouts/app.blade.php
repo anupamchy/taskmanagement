@@ -5,387 +5,583 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Task Manager</title>
+<title>TaskFlow | Task Manager</title>
 
-    <!-- Bootstrap CSS -->
+<!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    
+    <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
+    
+    <!-- ICONS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <!-- SWEET ALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
-        body {
-            background: #f5f7fb;
+:root{
+
+--primary:
+#4f46e5;
+
+--secondary:
+#7c3aed;
+
+--dark:
+#111827;
+
+--light-bg:
+#f4f7fb;
+
+--border:
+#e5e7eb;
         }
 
-        .navbar {
-            padding: 15px 0;
+*{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
         }
 
-        .card {
-            border: none;
+body{
+        
+        font-family: 'Inter', sans-serif;
+        
+        background:
+        linear-gradient(
+        180deg,
+        #f8faff 0%,
+        #f4f7fb 100%
+        );
+        
+        color: #111827;
+        
+        min-height: 100vh;
+        }
+
+a{
+        text-decoration: none;
+        }
+
+/* =========================
+        NAVBAR
+        ========================== */
+        
+        .modern-navbar{
+        
+        background:
+        rgba(17,24,39,0.85);
+        
+        backdrop-filter:
+        blur(12px);
+        
+        padding: 18px 0;
+        
+        border-bottom:
+        1px solid rgba(255,255,255,0.08);
+        
+        position: sticky;
+        
+        top: 0;
+        
+        z-index: 999;
+        
+        }
+        
+        .brand-logo{
+        
+        display: flex;
+        
+        align-items: center;
+        
+        gap: 12px;
+        
+        font-size: 1.4rem;
+        
+        font-weight: 800;
+        
+        color: white !important;
+        
+        }
+        
+        .brand-icon{
+        
+        width: 45px;
+        
+        height: 45px;
+        
+        border-radius: 14px;
+        
+        display: flex;
+        
+        align-items: center;
+        
+        justify-content: center;
+        
+        background:
+        linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+        );
+        
+        font-size: 20px;
+        
+        box-shadow:
+        0 10px 25px rgba(79,70,229,0.35);
+        
+        }
+        
+        .nav-link{
+        
+        color: rgba(255,255,255,0.85) !important;
+        
+        font-weight: 500;
+        
+        padding: 10px 16px !important;
             border-radius: 12px;
+transition: 0.3s ease;
         }
 
-        .table thead {
-            background: #212529;
-            color: #fff;
+.nav-link:hover{
+        
+        background:
+        rgba(255,255,255,0.08);
+        
+        color: white !important;
         }
 
-        .upload-box {
-            border: 2px dashed #ced4da;
-            border-radius: 12px;
-            padding: 30px;
-            background: #fff;
-            text-align: center;
-            transition: 0.3s;
+/* =========================
+        BUTTONS
+        ========================== */
+
+.btn-modern{
+
+border: none;
+
+border-radius: 14px;
+
+padding: 11px 20px;
+
+font-weight: 600;
+
+transition: all 0.3s ease;
+
+}
+
+.btn-gradient{
+
+background:
+            linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+            );
+
+color: white;
+
+box-shadow:
+            0 10px 25px rgba(79,70,229,0.25);
+
+}
+
+.btn-gradient:hover{
+
+transform:
+            translateY(-2px);
+
+color: white;
+
+box-shadow:
+            0 15px 30px rgba(79,70,229,0.35);
+
+}
+
+/* =========================
+        PAGE WRAPPER
+        ========================== */
+
+.page-wrapper{
+
+padding-top: 40px;
+
+padding-bottom: 60px;
+
+min-height: calc(100vh - 160px);
+
+}
+
+/* =========================
+        ALERTS
+        ========================== */
+
+.modern-alert{
+
+border: none;
+
+border-radius: 18px;
+
+padding: 18px 22px;
+
+font-weight: 500;
+
+box-shadow:
+            0 10px 25px rgba(0,0,0,0.05);
+
+}
+
+.alert-success{
+
+background:
+            rgba(34,197,94,0.12);
+
+color: #15803d;
+
+}
+
+.alert-danger{
+
+background:
+            rgba(239,68,68,0.12);
+
+color: #dc2626;
+
+}
+
+/* =========================
+        DROPDOWN
+        ========================== */
+
+.dropdown-menu{
+
+border: none;
+
+border-radius: 18px;
+
+padding: 10px;
+
+box-shadow:
+            0 15px 40px rgba(0,0,0,0.12);
+
+}
+
+.dropdown-item{
+
+border-radius: 12px;
+
+padding: 10px 14px;
+
+font-weight: 500;
+
+transition: 0.3s ease;
+
+}
+
+.dropdown-item:hover{
+
+background: #f4f7fb;
+
+}
+
+/* =========================
+        FOOTER
+        ========================== */
+
+.modern-footer{
+
+background: #111827;
+
+padding: 25px 0;
+
+margin-top: 50px;
+
+color: rgba(255,255,255,0.8);
+
+border-top:
+            1px solid rgba(255,255,255,0.05);
+
+}
+
+.footer-brand{
+
+font-weight: 700;
+
+color: white;
+
+}
+
+/* =========================
+        SCROLLBAR
+        ========================== */
+
+::-webkit-scrollbar{
+        width: 8px;
         }
 
-        .upload-box:hover {
-            border-color: #0d6efd;
-            background: #f8fbff;
-        }
+::-webkit-scrollbar-thumb{
 
-        .preview-image {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-    </style>
+background:
+            linear-gradient(
+            var(--primary),
+            var(--secondary)
+            );
+
+border-radius: 20px;
+
+}
+
+/* =========================
+        RESPONSIVE
+        ========================== */
+
+@media(max-width: 768px){
+
+.brand-logo{
+            font-size: 1.1rem;
+            }
+
+.page-wrapper{
+            padding-top: 25px;
+            }
+
+}
+
+</style>
 
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+<!-- =========================
+                NAVBAR
+        ========================== -->
+
+<nav class="navbar navbar-expand-lg modern-navbar">
 
         <div class="container">
 
-            <!-- LOGO -->
-            <a href="{{ route('tasks.index') }}" class="navbar-brand fw-bold fs-4">
+<!-- LOGO -->
+            <a href="{{ route('tasks.index') }}" class="navbar-brand brand-logo">
 
-                <i class="bi bi-check2-square"></i>
-                Task Manager
+<div class="brand-icon">
 
-            </a>
+<i class="bi bi-check2-square"></i>
 
-            <!-- MOBILE BUTTON -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+</div>
 
-                <span class="navbar-toggler-icon"></span>
+TaskFlow
 
-            </button>
+</a>
 
-            <!-- NAVIGATION -->
+<!-- MOBILE TOGGLE -->
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+<i class="bi bi-list text-white fs-2"></i>
+
+</button>
+
+<!-- NAVIGATION -->
             <div class="collapse navbar-collapse" id="navbarNav">
 
-                <ul class="navbar-nav ms-auto align-items-lg-center">
+<ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
 
-                    <!-- TASK LIST -->
-                    <li class="nav-item me-2">
+<!-- TASKS -->
+                    <li class="nav-item">
 
-                        <a href="{{ route('tasks.index') }}" class="nav-link">
+<a href="{{ route('tasks.index') }}" class="nav-link">
 
-                            <i class="bi bi-list-task"></i>
-                            Tasks
+<i class="bi bi-list-task"></i>
 
-                        </a>
+Tasks
 
-                    </li>
+</a>
 
-                    <!-- CREATE TASK -->
-                    <li class="nav-item me-3">
+</li>
 
-                        <a href="{{ route('tasks.create') }}" class="btn btn-primary btn-sm">
+<!-- ADD TASK -->
+                    <li class="nav-item">
 
-                            <i class="bi bi-plus-circle"></i>
-                            Add Task
+<a href="{{ route('tasks.create') }}" class="btn btn-modern btn-gradient">
 
-                        </a>
+<i class="bi bi-plus-circle"></i>
 
-                    </li>
+Add Task
 
-                    <!-- USER DROPDOWN -->
+</a>
+
+</li>
+
+<!-- USER -->
                     <li class="nav-item dropdown">
 
-                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+<a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown">
 
-                            <i class="bi bi-person-circle"></i>
+<i class="bi bi-person-circle fs-5"></i>
+                            
                             {{ auth()->user()->name }}
 
-                        </a>
+</a>
 
-                        <ul class="dropdown-menu dropdown-menu-end shadow">
+<ul class="dropdown-menu dropdown-menu-end">
 
+<li>
 
+<div class="px-3 py-2">
 
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+<small class="text-muted">
+                                        Logged in as
+                                    </small>
 
-                            <li>
+<div class="fw-bold">
+                                    
+                                        {{ auth()->user()->name }}
+                                    
+                                    </div>
+                                    
+                                    </div>
+                                    
+                                    </li>
+                                    
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    
+                                    <li>
+                                    
+                                        <form method="POST" action="{{ route('logout') }}">
+                                    
+                                            @csrf
+                                    
+                                            <button class="dropdown-item text-danger">
+                                    
+                                                <i class="bi bi-box-arrow-right"></i>
+                                    
+                                                Logout
+                                    
+                                            </button>
+                                    
+                                        </form>
+                                    
+                                    </li>
+                                    
+                                    </ul>
+                                    
+                                    </li>
+                                    
+                                    </ul>
+                                    
+                                    </div>
+</div>
 
-                                <form method="POST" action="{{ route('logout') }}">
+</nav>
+    
+    <!-- =========================
+                PAGE CONTENT
+        ========================== -->
+    
+    <main class="page-wrapper">
+    
+        <div class="container">
+    
+            <!-- SUCCESS ALERT -->
+            @if(session('success'))
+    
+            <div class="alert alert-success modern-alert alert-dismissible fade show mb-4">
+    
+                <div class="d-flex align-items-center gap-2">
+    
+                    <i class="bi bi-check-circle-fill"></i>
+    
+                    {{ session('success') }}
+</div>
 
-                                    @csrf
+<button type="button" class="btn-close" data-bs-dismiss="alert">
+                </button>
+</div>
+@endif
 
-                                    <button class="dropdown-item text-danger">
+<!-- ERROR ALERT -->
+@if($errors->any())
 
-                                        <i class="bi bi-box-arrow-right"></i>
-                                        Logout
+<div class="alert alert-danger modern-alert mb-4">
 
-                                    </button>
+    <div class="fw-bold mb-2">
 
-                                </form>
+        <i class="bi bi-exclamation-triangle-fill"></i>
 
-                            </li>
+        Please fix the following errors:
 
-                        </ul>
+</div>
 
-                    </li>
+<ul class="mb-0 ps-3">
 
-                </ul>
+@foreach($errors->all() as $error)
 
-            </div>
+<li>{{ $error }}</li>
 
-        </div>
+@endforeach
 
-    </nav>
+</ul>
 
-    <!-- MAIN CONTENT -->
-    <div class="container py-4">
+</div>
 
-        <!-- SUCCESS MESSAGE -->
-        @if(session('success'))
+@endif
+            
+            <!-- CONTENT -->
+            @yield('content')
+</div>
 
-        <div class="alert alert-success alert-dismissible fade show">
+</main>
+    
+    <!-- =========================
+                FOOTER
+        ========================== -->
+    
+    <footer class="modern-footer">
+    
+        <div class="container">
+    
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+    
+                <div>
+    
+                    <div class="footer-brand">
+    
+                        TaskFlow
+</div>
 
-            {{ session('success') }}
-
-            <button type="button" class="btn-close" data-bs-dismiss="alert">
-            </button>
-
-        </div>
-
-        @endif
-
-        <!-- ERROR MESSAGE -->
-        @if($errors->any())
-
-        <div class="alert alert-danger">
-
-            <ul class="mb-0">
-
-                @foreach($errors->all() as $error)
-
-                <li>{{ $error }}</li>
-
-                @endforeach
-
-            </ul>
-
-        </div>
-
-        @endif
-
-        <!-- PAGE CONTENT -->
-        @yield('content')
-
-    </div>
-
-    {{--
-    <!-- FILE UPLOAD SECTION -->
-    <div class="container mb-5">
-
-        <div class="card shadow-sm">
-
-            <div class="card-body">
-
-                <h4 class="mb-4">
-
-                    <i class="bi bi-cloud-upload"></i>
-                    Multiple File Upload
-
-                </h4>
-
-                <!-- UPLOAD AREA -->
-                <div class="upload-box">
-
-                    <input type="file" id="files" multiple class="form-control">
-
-                    <small class="text-muted d-block mt-2">
-
-                        Upload JPG, PNG, PDF files
-
+<small>
+                        Smart task management system
                     </small>
 
-                </div>
+</div>
 
-                <!-- LOADER -->
-                <div id="uploadLoader" class="mt-3 text-primary d-none">
+<small>
 
-                    Uploading files...
+© {{ date('Y') }}
 
-                </div>
+All Rights Reserved
 
-                <!-- PREVIEW -->
-                <div id="preview" class="row mt-4 g-4">
+</small>
 
-                </div>
+</div>
 
-            </div>
+</div>
 
-        </div>
+</footer>
 
-    </div> --}}
-
-    <!-- FOOTER -->
-    <footer class="bg-dark text-white text-center py-3 mt-5">
-
-        <div class="container">
-
-            <small>
-
-                © {{ date('Y') }}
-                Task Manager Application
-
-            </small>
-
-        </div>
-
-    </footer>
-
-    <!-- Bootstrap JS -->
+<!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- AJAX FILE UPLOAD -->
-    <script>
-        document
-        .getElementById('files')
-        .addEventListener('change', function () {
-
-            let files = this.files;
-
-            let formData = new FormData();
-
-            for (let file of files) {
-
-                formData.append('files[]', file);
-
-            }
-
-            document
-            .getElementById('uploadLoader')
-            .classList.remove('d-none');
-
-            fetch("{{ route('upload.files') }}", {
-
-                method: 'POST',
-
-                headers: {
-                    'X-CSRF-TOKEN':
-                    document.querySelector(
-                        'meta[name="csrf-token"]'
-                    ).content
-                },
-
-                body: formData
-
-            })
-
-            .then(response => response.json())
-
-            .then(data => {
-
-                document
-                .getElementById('uploadLoader')
-                .classList.add('d-none');
-
-                let preview =
-                document.getElementById('preview');
-
-                preview.innerHTML = '';
-
-                data.forEach(file => {
-
-                    let html = '';
-
-                    // PDF
-                    if (file.path.includes('.pdf')) {
-
-                        html = `
-                            <div class="col-md-3">
-
-                                <div class="card shadow-sm">
-
-                                    <iframe
-                                        src="${file.path}"
-                                        width="100%"
-                                        height="220">
-                                    </iframe>
-
-                                    <div class="card-body text-center">
-
-                                        <small>
-                                            ${file.name}
-                                        </small>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        `;
-
-                    } else {
-
-                        // IMAGE
-                        html = `
-                            <div class="col-md-3">
-
-                                <div class="card shadow-sm">
-
-                                    <img src="${file.path}"
-                                         class="preview-image">
-
-                                    <div class="card-body text-center">
-
-                                        <small>
-                                            ${file.name}
-                                        </small>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        `;
-
-                    }
-
-                    preview.innerHTML += html;
-
-                });
-
-            })
-
-            .catch(error => {
-
-                console.error(error);
-
-                alert('File upload failed');
-
-            });
-
-        });
-
-    </script>
 
 </body>
 
